@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "web_order_quantity")
+@SuppressWarnings("ALL")
 public class WebOrderQuantity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
