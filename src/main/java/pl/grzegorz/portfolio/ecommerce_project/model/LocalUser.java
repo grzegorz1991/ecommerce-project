@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@SuppressWarnings("ALL")
 @Entity
 @Table(name = "local_user")
 public class LocalUser {

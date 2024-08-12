@@ -2,6 +2,7 @@ package pl.grzegorz.portfolio.ecommerce_project.model;
 
 import jakarta.persistence.*;
 
+@SuppressWarnings({"JpaDataSourceORMInspection", "unused"})
 @Entity
 @Table(name = "adress")
 public class Adress {

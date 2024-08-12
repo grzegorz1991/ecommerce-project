@@ -2,6 +2,7 @@ package pl.grzegorz.portfolio.ecommerce_project.model;
 
 import jakarta.persistence.*;
 
+@SuppressWarnings("ALL")
 @Entity
 @Table(name = "inventory")
 public class Inventory {

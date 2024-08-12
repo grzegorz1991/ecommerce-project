@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "web_order")
+@SuppressWarnings("ALL")
 public class WebOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
