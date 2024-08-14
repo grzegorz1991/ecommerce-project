@@ -1,9 +1,13 @@
 package pl.grzegorz.portfolio.ecommerce_project.api.model;
 
+import org.hibernate.validator.constraints.Email;
+
 @SuppressWarnings("ALL")
 public class RegistrationBody {
 
     private String username;
+
+    @Email
     private String email;
     private String password;
     private String firstName;
