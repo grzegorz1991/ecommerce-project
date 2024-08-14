@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.2</version>
-<!--		<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+
 	</parent>
 	<groupId>pl.grzegorz.portfolio</groupId>
 	<artifactId>ecommerce-project</artifactId>
@@ -63,6 +63,13 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>9.0.0</version>
 		</dependency>
+		<!-- H2 Database for testing  -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
