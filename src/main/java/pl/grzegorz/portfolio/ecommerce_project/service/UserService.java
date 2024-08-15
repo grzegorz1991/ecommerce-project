@@ -7,7 +7,7 @@ import pl.grzegorz.portfolio.ecommerce_project.api.model.RegistrationBody;
 import pl.grzegorz.portfolio.ecommerce_project.exception.UserAlreadyExistsException;
 import pl.grzegorz.portfolio.ecommerce_project.model.LocalUser;
 import pl.grzegorz.portfolio.ecommerce_project.model.dao.LocalUserDAO;
-
+import pl.grzegorz.portfolio.ecommerce_project.service.JWTService;
 import java.util.Optional;
 
 @Service
@@ -25,7 +25,6 @@ public class UserService {
         this.encryptionService = encryptionService;
         this.jwtService = jwtService;
     }
-
 
     public LocalUser registerUser(RegistrationBody registrationBody) throws UserAlreadyExistsException {
 

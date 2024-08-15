@@ -4,11 +4,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import pl.grzegorz.portfolio.ecommerce_project.model.LocalUser;
 
 import java.util.Date;
 
-
+@Service
 //Jason Web Token
 public class JWTService {
 
