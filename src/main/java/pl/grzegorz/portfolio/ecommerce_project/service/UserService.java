@@ -13,9 +13,11 @@ public class UserService {
 
     @SuppressWarnings("FieldMayBeFinal")
     private LocalUserDAO localUserDAO;
+    private EncryptionService encryptionService;
 
-    public UserService(LocalUserDAO localUserDAO) {
+    public UserService(LocalUserDAO localUserDAO, EncryptionService encryptionService) {
         this.localUserDAO = localUserDAO;
+        this.encryptionService = encryptionService;
     }
 
 
@@ -34,7 +36,7 @@ public class UserService {
         user.setLastName(registrationBody.getLastName());
         user.setUsername(registrationBody.getUsername());
         //TODO: ENCRYPT PASSWORD!
-        user.setPassword(registrationBody.getPassword());
+        user.setPassword(encryptionService.encryptPassword(registrationBody.getPassword()));
         return localUserDAO.save(user);
 
 

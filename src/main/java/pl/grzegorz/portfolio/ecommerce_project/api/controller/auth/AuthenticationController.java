@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.portfolio.ecommerce_project.api.model.RegistrationBody;
 import pl.grzegorz.portfolio.ecommerce_project.exception.UserAlreadyExistsException;
+import pl.grzegorz.portfolio.ecommerce_project.service.EncryptionService;
 import pl.grzegorz.portfolio.ecommerce_project.service.UserService;
 
 @RestController
@@ -16,8 +17,11 @@ public class AuthenticationController {
     @SuppressWarnings("FieldMayBeFinal")
     private UserService userService;
 
-    public AuthenticationController(UserService userService) {
+    private EncryptionService encryptionService;
+
+    public AuthenticationController(UserService userService, EncryptionService encryptionService) {
         this.userService = userService;
+        this.encryptionService = encryptionService;
     }
 
     @PostMapping("/register")
@@ -29,5 +33,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
+
+
 
 }
