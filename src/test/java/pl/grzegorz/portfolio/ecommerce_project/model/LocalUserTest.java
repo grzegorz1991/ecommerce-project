@@ -20,24 +20,24 @@ class LocalUserTest {
         localUser.setFirstName("John");
         localUser.setLastName("Doe");
 
-        // Creating a Mock Adress Set
-        Set<Adress> adresses = new HashSet<>();
-        Adress adress1 = new Adress();
-        adress1.setAdressLine1("123 Elm Street");
-        adress1.setCity("Metropolis");
-        adress1.setCountry("USA");
-        adress1.setUser(localUser);
+        // Creating a Mock Address Set
+        Set<Address> addresses = new HashSet<>();
+        Address address1 = new Address();
+        address1.setAdressLine1("123 Elm Street");
+        address1.setCity("Metropolis");
+        address1.setCountry("USA");
+        address1.setUser(localUser);
 
-        Adress adress2 = new Adress();
-        adress2.setAdressLine1("456 Oak Avenue");
-        adress2.setCity("Gotham");
-        adress2.setCountry("USA");
-        adress2.setUser(localUser);
+        Address address2 = new Address();
+        address2.setAdressLine1("456 Oak Avenue");
+        address2.setCity("Gotham");
+        address2.setCountry("USA");
+        address2.setUser(localUser);
 
-        adresses.add(adress1);
-        adresses.add(adress2);
+        addresses.add(address1);
+        addresses.add(address2);
 
-        localUser.setAdresses(adresses);
+        localUser.setAdresses(addresses);
 
         // Testing getters
         assertEquals(1L, localUser.getId());
@@ -47,7 +47,7 @@ class LocalUserTest {
         assertEquals("John", localUser.getFirstName());
         assertEquals("Doe", localUser.getLastName());
         assertEquals(2, localUser.getAdresses().size());
-        assertTrue(localUser.getAdresses().contains(adress1));
-        assertTrue(localUser.getAdresses().contains(adress2));
+        assertTrue(localUser.getAdresses().contains(address1));
+        assertTrue(localUser.getAdresses().contains(address2));
     }
 }

@@ -33,14 +33,15 @@ public class LocalUser {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Adress> adresses = new LinkedHashSet<>();
+    private Set<Address> addresses = new LinkedHashSet<>();
 
-    public Set<Adress> getAdresses() {
-        return adresses;
+    @JsonIgnore
+    public Set<Address> getAdresses() {
+        return addresses;
     }
 
-    public void setAdresses(Set<Adress> adresses) {
-        this.adresses = adresses;
+    public void setAdresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public String getLastName() {
