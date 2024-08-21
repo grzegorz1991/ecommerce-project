@@ -73,4 +73,17 @@ public class AuthenticationController {
     public LocalUser getLoggedinUserProfile(@AuthenticationPrincipal LocalUser user) {
         return user;
     }
+
+
+    @PostMapping("/verify")
+    public ResponseEntity verifyEmail(@RequestParam String token){
+
+            if(userService.verifyUser(token)){
+                return ResponseEntity.ok().build();
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+
+    }
 }
