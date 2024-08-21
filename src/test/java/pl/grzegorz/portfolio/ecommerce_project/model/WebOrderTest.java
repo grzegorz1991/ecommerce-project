@@ -19,9 +19,9 @@ class WebOrderTest {
         LocalUser user = new LocalUser();
         webOrder.setUser(user);
 
-        // Creating a Mock Adress
-        Adress adress = new Adress();
-        webOrder.setAdress(adress);
+        // Creating a Mock Address
+        Address address = new Address();
+        webOrder.setAdress(address);
 
         // Creating a Mock List of WebOrderQuantity
         List<WebOrderQuantity> quantities = new ArrayList<>();
@@ -40,7 +40,7 @@ class WebOrderTest {
         // Testing getters
         assertEquals(1L, webOrder.getId());
         assertEquals(user, webOrder.getUser());
-        assertEquals(adress, webOrder.getAdress());
+        assertEquals(address, webOrder.getAdress());
         assertEquals(2, webOrder.getQuantities().size());
         assertTrue(webOrder.getQuantities().contains(quantity1));
         assertTrue(webOrder.getQuantities().contains(quantity2));
