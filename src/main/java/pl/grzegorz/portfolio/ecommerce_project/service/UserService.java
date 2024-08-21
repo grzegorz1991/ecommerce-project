@@ -7,12 +7,14 @@ import pl.grzegorz.portfolio.ecommerce_project.api.model.RegistrationBody;
 import pl.grzegorz.portfolio.ecommerce_project.api.model.VerificationToken;
 import pl.grzegorz.portfolio.ecommerce_project.exception.EmailFailureException;
 import pl.grzegorz.portfolio.ecommerce_project.exception.UserAlreadyExistsException;
+import pl.grzegorz.portfolio.ecommerce_project.exception.UserNotVerifiedException;
 import pl.grzegorz.portfolio.ecommerce_project.model.LocalUser;
 import pl.grzegorz.portfolio.ecommerce_project.model.dao.LocalUserDAO;
 import pl.grzegorz.portfolio.ecommerce_project.model.dao.VerificationTokenDAO;
 
 import java.sql.Timestamp;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 
@@ -59,13 +61,28 @@ public class UserService {
 
     }
 
-    public String loginUser(LoginBody loginBody) {
+    public String loginUser(LoginBody loginBody) throws UserNotVerifiedException, EmailFailureException {
 
         Optional<LocalUser> opUser = localUserDAO.findByUsernameIgnoreCase(loginBody.getUsername());
         if (opUser.isPresent()) {
             LocalUser user = opUser.get();
             if (encryptionService.verifyPassword(loginBody.getPassword(), user.getPassword())) {
-                return jwtService.generateJWT(user);
+                if(user.isEmailVerified()){
+
+                return jwtService.generateJWT(user);}
+                else{
+                    List<VerificationToken> verificationTokenList = user.getVerifiationTokens();
+
+                    boolean resend = verificationTokenList.isEmpty() || verificationTokenList.get(0).getCreatedTimestamp().before(new Timestamp(System.currentTimeMillis()-(60*60*1000)));
+
+                    if(resend){
+                       VerificationToken verificationToken = createVerificationToken(user);
+                       verificationTokenDAO.save(verificationToken);
+                       emailService.sendVerificationEmail(verificationToken);
+                    }
+
+                    throw new UserNotVerifiedException(resend);
+                }
             }
         }
         return null;

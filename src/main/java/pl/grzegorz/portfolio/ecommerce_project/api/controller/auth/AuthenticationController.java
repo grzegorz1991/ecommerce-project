@@ -11,6 +11,7 @@ import pl.grzegorz.portfolio.ecommerce_project.api.model.LoginResponse;
 import pl.grzegorz.portfolio.ecommerce_project.api.model.RegistrationBody;
 import pl.grzegorz.portfolio.ecommerce_project.exception.EmailFailureException;
 import pl.grzegorz.portfolio.ecommerce_project.exception.UserAlreadyExistsException;
+import pl.grzegorz.portfolio.ecommerce_project.exception.UserNotVerifiedException;
 import pl.grzegorz.portfolio.ecommerce_project.model.LocalUser;
 import pl.grzegorz.portfolio.ecommerce_project.service.EncryptionService;
 import pl.grzegorz.portfolio.ecommerce_project.service.UserService;
@@ -43,12 +44,27 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity loginUser(@Valid @RequestBody LoginBody loginBody) {
-        String jwt = userService.loginUser(loginBody);
+        String jwt = null;
+        try {
+            jwt = userService.loginUser(loginBody);
+        } catch (UserNotVerifiedException e) {
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setSuccess(false);
+            String reason = "USER_NOT_VERIFIED";
+            if (e.isNewEmailSent()){
+                reason += " EMAIL_RESENT";
+             }
+            loginResponse.setFailureReason(reason);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(loginResponse);
+        } catch (EmailFailureException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         if (jwt == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
             LoginResponse response = new LoginResponse();
             response.setJwt(jwt);
+            response.setSuccess(true);
             return ResponseEntity.ok(response);
         }
     }
