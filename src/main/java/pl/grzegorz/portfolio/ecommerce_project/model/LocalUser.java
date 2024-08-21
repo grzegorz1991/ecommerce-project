@@ -2,8 +2,11 @@ package pl.grzegorz.portfolio.ecommerce_project.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import pl.grzegorz.portfolio.ecommerce_project.api.model.VerificationToken;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("ALL")
@@ -34,6 +37,17 @@ public class LocalUser {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Address> addresses = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VerificationToken> verificationTokens = new ArrayList<>();
+
+    public List<VerificationToken> getVerifiationTokens() {
+        return verificationTokens;
+    }
+
+    public void setVerifiationTokens(List<VerificationToken> verificationTokens) {
+        this.verificationTokens = verificationTokens;
+    }
 
     @JsonIgnore
     public Set<Address> getAdresses() {

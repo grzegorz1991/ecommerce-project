@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.grzegorz.portfolio.ecommerce_project.api.model.LoginBody;
 import pl.grzegorz.portfolio.ecommerce_project.api.model.LoginResponse;
 import pl.grzegorz.portfolio.ecommerce_project.api.model.RegistrationBody;
+import pl.grzegorz.portfolio.ecommerce_project.exception.EmailFailureException;
 import pl.grzegorz.portfolio.ecommerce_project.exception.UserAlreadyExistsException;
 import pl.grzegorz.portfolio.ecommerce_project.model.LocalUser;
 import pl.grzegorz.portfolio.ecommerce_project.service.EncryptionService;
@@ -35,6 +36,8 @@ public class AuthenticationController {
             return ResponseEntity.ok().build();
         } catch (UserAlreadyExistsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }catch (EmailFailureException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
